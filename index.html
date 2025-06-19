@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>To My Best Friend 💛</title>
   <style>
+    /* CSS remains unchanged */
     body {
       background: linear-gradient(135deg, #ffdde1, #ee9ca7);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -114,61 +115,36 @@
       display: none;
     }
     @keyframes slideIn {
-      from {
-        transform: translateY(-100px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(-100px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     .typewriter {
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 2px solid #e91e63;
-  animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
-}
-
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-@keyframes blink {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: #e91e63; }
-}
-
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #e91e63;
+      animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      0%, 100% { border-color: transparent; }
+      50% { border-color: #e91e63; }
+    }
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
     @keyframes fadeInUp {
-      from {
-        transform: translateY(30px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
     @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.1);
-      }
-      100% {
-        transform: scale(1);
-      }
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
@@ -178,9 +154,7 @@
   </audio>
 
   <div class="card" id="inputCard">
-
     <h2><span class="typewriter">What's your name?</span></h2>
-
     <form id="nameForm">
       <input type="text" id="nameInput" placeholder="Enter your name here..." />
       <br />
@@ -190,30 +164,36 @@
 
   <div class="card hidden" id="questionCard1">
     <h2>Hey <span id="girlName1"></span>,</h2>
-    <p>Have you ever wondered how someone becomes your favorite person?</p>
+      <p>Have you ever wondered how <strong>you</strong> became someone’s favorite person?</p>
+   <p><strong>Or</strong></p>
+
+<p>How <strong>you</strong> became the reason someone smiles a little brighter?</p>
+
     <button onclick="goToQuestion2(true)">I have 💫</button>
-    <button disabled title="You already know the answer 😉">Not really</button>
+    <button onclick="goToQuestion2(false)">Not really</button>
   </div>
 
   <div class="card hidden" id="questionCard2">
     <h2 id="question2Header">You're a blessing</h2>
-    <p id="question2Text">...in my life I never expected, but always needed.</p>
+    <p>You’re a blessing in my life I never expected.</p>
+<p>But you’re exactly what I always needed.</p>
     <button onclick="goToQuestion3()">Keep going 🥺</button>
   </div>
 
   <div class="card hidden" id="questionCard3">
     <h2>Distance means so little...</h2>
-    <p>...when someone means so much. No matter where we are, you live in my heart.</p>
-    <button onclick="goToMessage()">I feel the same 💖</button>
-    <button disabled title="Admit it, we're stuck forever 😄">I doubt it ❌</button>
+  <p>Distance means so little when someone means so much.</p>
+<p>No matter where we are, you still live in my heart.</p>
+
+
+    <button onclick="goToMessage(true)">I feel the same 💖</button>
+    <button onclick="goToMessage(false)">I doubt it ❌</button>
   </div>
 
   <div class="card hidden" id="messageCard">
     <h2>Dear <span id="girlName2"></span>...</h2>
-    <p>I'm sorry if I’ve ever made you feel anything less than cherished.</p>
-    <p>You’re more than a best friend — you’re my chosen family, my light, my safe place.</p>
-    <p class="heart-button">Let’s promise to stay this close, no matter where life takes us 💫</p>
-    <div class="footer">With all my heart, always 💛</div>
+    <div id="finalMessage"></div>
+    <div class="footer"><strong>I Love You</strong><br>With all my heart, always 💛</div>
   </div>
 
   <script>
@@ -236,10 +216,12 @@
     function goToQuestion2(answerYes) {
       document.getElementById("questionCard1").classList.add("hidden");
       document.getElementById("questionCard2").classList.remove("hidden");
-
       if (answerYes) {
         document.getElementById("question2Header").textContent = "You're a blessing";
-        document.getElementById("question2Text").textContent = "...in my life I never expected, but always needed.";
+        document.getElementById("question2Text").innerHTML = "...<br>in my life I never expected,<br>but always needed.";
+      } else {
+        document.getElementById("question2Header").textContent = "Even if you haven’t...";
+        document.getElementById("question2Text").innerHTML = "...<br>you’ve definitely become mine.";
       }
     }
 
@@ -248,11 +230,24 @@
       document.getElementById("questionCard3").classList.remove("hidden");
     }
 
-    function goToMessage() {
+    function goToMessage(agree) {
       const name = document.getElementById("nameInput").value.trim();
       document.getElementById("girlName2").textContent = name;
       document.getElementById("questionCard3").classList.add("hidden");
       document.getElementById("messageCard").classList.remove("hidden");
+      if (agree) {
+        document.getElementById("finalMessage").innerHTML = `
+          <p>I'm sorry if I’ve ever made you feel anything less than cherished.</p>
+          <p>You’re more than a best friend — you’re my chosen family, my light, my safe place.</p>
+          <p class="heart-button">Let’s promise to stay this close, no matter where life takes us 💫</p>
+        `;
+      } else {
+        document.getElementById("finalMessage").innerHTML = `
+          <p>I know I tease, but I truly value you more than you might believe.</p>
+          <p>Even in doubt, you’ll always hold a piece of my heart.</p>
+          <p class="heart-button">Thanks for always being there — even when I least deserve it 💛</p>
+        `;
+      }
     }
 
     function generateHearts() {
