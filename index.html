@@ -163,7 +163,7 @@
   </div>
 
   <div class="card hidden" id="questionCard1">
-    <h2>Hey <span id="girlName1"></span>,</h2>
+    <h2><span>Hey <span id="girlName1"></span>,</h2>
       <p>Have you ever wondered how <strong>you</strong> became someone’s favorite person?</p>
    <p><strong>Or</strong></p>
 
@@ -192,8 +192,24 @@
 
   <div class="card hidden" id="messageCard">
     <h2>Dear <span id="girlName2"></span>...</h2>
-    <div id="finalMessage"></div>
-    <div class="footer"><strong>I Love You</strong><br>With all my heart, always 💛</div>
+     <div id="finalMessage"></div>
+<form action="https://formspree.io/f/mblykbov" method="POST">
+  <input type="hidden" name="name" id="submittedName" />
+  <input type="hidden" name="response" id="responseInput" />
+ <input type="hidden" name="name" id="submittedName" />
+<input type="hidden" name="response" id="responseInput" />
+  <input type="hidden" name="question1" id="question1Answer">
+<input type="hidden" name="question3" id="question3Answer">
+
+
+
+  <button type="submit" onclick="prepareForm('Yes, I Promise 💛')">Yes, I Promise 💛</button>
+  <button type="submit" onclick="prepareForm('Let’s Talk 💬')">Let’s Talk 💬</button>
+</form>
+
+
+
+    <div class="footer"><strong>I Love You🖤</strong><br>With all my heart, always 💛</div>
   </div>
 
   <script>
@@ -208,14 +224,34 @@
         document.getElementById("girlName1").textContent = name;
         document.getElementById("inputCard").classList.add("hidden");
         document.getElementById("questionCard1").classList.remove("hidden");
+    
+
+
+
       } else {
         alert("Please enter a name first!");
       }
     }
+function prepareForm(response) {
+  const name = document.getElementById("nameInput").value.trim();
+  document.getElementById("submittedName").value = name;
+  document.getElementById("responseInput").value = response;
+}
+function prepareForm(response) {
+  const name = document.getElementById("nameInput").value.trim();
+  document.getElementById("submittedName").value = name;
+  document.getElementById("responseInput").value = response;
+}
 
     function goToQuestion2(answerYes) {
       document.getElementById("questionCard1").classList.add("hidden");
       document.getElementById("questionCard2").classList.remove("hidden");
+      document.getElementById("question1Answer").value = answerYes ? "I have 💫" : "Not really";
+  
+     
+
+
+      
       if (answerYes) {
         document.getElementById("question2Header").textContent = "You're a blessing";
         document.getElementById("question2Text").innerHTML = "...<br>in my life I never expected,<br>but always needed.";
@@ -228,13 +264,19 @@
     function goToQuestion3() {
       document.getElementById("questionCard2").classList.add("hidden");
       document.getElementById("questionCard3").classList.remove("hidden");
+      
+
+
     }
 
     function goToMessage(agree) {
+        answer3 = agree ? "I feel the same 💖" : "I doubt it ❌";
+  document.getElementById("question3Answer").value = answer3;
       const name = document.getElementById("nameInput").value.trim();
       document.getElementById("girlName2").textContent = name;
       document.getElementById("questionCard3").classList.add("hidden");
       document.getElementById("messageCard").classList.remove("hidden");
+      
       if (agree) {
         document.getElementById("finalMessage").innerHTML = `
           <p>I'm sorry if I’ve ever made you feel anything less than cherished.</p>
@@ -249,6 +291,22 @@
         `;
       }
     }
+function sendResponse(response) {
+  const name = document.getElementById("nameInput").value.trim();
+  const message = `Name: ${name}\nResponse: ${response}`;
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "https://formspree.io/f/mblykbov"; 
+  form.style.display = "none";
+
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "message";
+  input.value = message;
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+}
 
     function generateHearts() {
       const colors = ["#e91e63", "#ff69b4", "#ff1493", "#ff6f91", "#f06292", "#ffb6c1", "#ff7eb3"];
