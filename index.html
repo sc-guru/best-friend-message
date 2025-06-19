@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To My Best Friend 💛</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    .floating-heart {
+      position: fixed;
+      width: 20px;
+      height: 20px;
+      background-color: transparent;
+      animation: float 6s infinite ease-in;
+      opacity: 0.6;
+      z-index: 0;
+    }
+    .floating-heart::before,
+    .floating-heart::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: var(--heart-color);
+      border-radius: 50%;
+    }
+    .floating-heart::before {
+      top: -50%;
+      left: 0;
+    }
+    .floating-heart::after {
+      top: 0;
+      left: -50%;
+    }
+    .floating-heart {
+      transform: rotate(45deg);
+    }
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.6;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+    .card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 400px;
+      text-align: center;
+      animation: slideIn 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+    .card h2 {
+      color: #e91e63;
+      margin-bottom: 10px;
+      animation: fadeIn 2s ease-in;
+    }
+    .card p {
+      font-size: 1.1em;
+      margin: 10px 0;
+      color: #444;
+      animation: fadeInUp 1.5s ease-in-out;
+    }
+    .heart-button {
+      font-size: 30px;
+      color: #e91e63;
+      background: none;
+      border: none;
+      cursor: pointer;
+      animation: pulse 1.5s infinite;
+    }
+    .footer {
+      margin-top: 20px;
+      font-style: italic;
+      color: #777;
+      animation: fadeIn 3s ease-in;
+    }
+    .hidden {
+      display: none;
+    }
+    input {
+      padding: 10px;
+      margin-top: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    audio {
+      display: none;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    .typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #e91e63;
+  animation: typing 3s steps(30, end), blink 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #e91e63; }
+}
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body onload="document.getElementById('bgMusic').play(); generateHearts();">
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/11/audio_b8a978d290.mp3?filename=romantic-piano-ambient-121008.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" id="inputCard">
+
+    <h2><span class="typewriter">What's your name?</span></h2>
+
+    <form id="nameForm">
+      <input type="text" id="nameInput" placeholder="Enter your name here..." />
+      <br />
+      <button type="submit">Begin 💌</button>
+    </form>
+  </div>
+
+  <div class="card hidden" id="questionCard1">
+    <h2>Hey <span id="girlName1"></span>,</h2>
+    <p>Have you ever wondered how someone becomes your favorite person?</p>
+    <button onclick="goToQuestion2(true)">I have 💫</button>
+    <button disabled title="You already know the answer 😉">Not really</button>
+  </div>
+
+  <div class="card hidden" id="questionCard2">
+    <h2 id="question2Header">You're a blessing</h2>
+    <p id="question2Text">...in my life I never expected, but always needed.</p>
+    <button onclick="goToQuestion3()">Keep going 🥺</button>
+  </div>
+
+  <div class="card hidden" id="questionCard3">
+    <h2>Distance means so little...</h2>
+    <p>...when someone means so much. No matter where we are, you live in my heart.</p>
+    <button onclick="goToMessage()">I feel the same 💖</button>
+    <button disabled title="Admit it, we're stuck forever 😄">I doubt it ❌</button>
+  </div>
+
+  <div class="card hidden" id="messageCard">
+    <h2>Dear <span id="girlName2"></span>...</h2>
+    <p>I'm sorry if I’ve ever made you feel anything less than cherished.</p>
+    <p>You’re more than a best friend — you’re my chosen family, my light, my safe place.</p>
+    <p class="heart-button">Let’s promise to stay this close, no matter where life takes us 💫</p>
+    <div class="footer">With all my heart, always 💛</div>
+  </div>
+
+  <script>
+    document.getElementById("nameForm").addEventListener("submit", function (event) {
+      event.preventDefault();
+      goToQuestion1();
+    });
+
+    function goToQuestion1() {
+      const name = document.getElementById("nameInput").value.trim();
+      if (name !== "") {
+        document.getElementById("girlName1").textContent = name;
+        document.getElementById("inputCard").classList.add("hidden");
+        document.getElementById("questionCard1").classList.remove("hidden");
+      } else {
+        alert("Please enter a name first!");
+      }
+    }
+
+    function goToQuestion2(answerYes) {
+      document.getElementById("questionCard1").classList.add("hidden");
+      document.getElementById("questionCard2").classList.remove("hidden");
+
+      if (answerYes) {
+        document.getElementById("question2Header").textContent = "You're a blessing";
+        document.getElementById("question2Text").textContent = "...in my life I never expected, but always needed.";
+      }
+    }
+
+    function goToQuestion3() {
+      document.getElementById("questionCard2").classList.add("hidden");
+      document.getElementById("questionCard3").classList.remove("hidden");
+    }
+
+    function goToMessage() {
+      const name = document.getElementById("nameInput").value.trim();
+      document.getElementById("girlName2").textContent = name;
+      document.getElementById("questionCard3").classList.add("hidden");
+      document.getElementById("messageCard").classList.remove("hidden");
+    }
+
+    function generateHearts() {
+      const colors = ["#e91e63", "#ff69b4", "#ff1493", "#ff6f91", "#f06292", "#ffb6c1", "#ff7eb3"];
+      setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDelay = "0s";
+        const size = 10 + Math.random() * 20;
+        heart.style.width = heart.style.height = size + "px";
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        heart.style.backgroundColor = color;
+        heart.style.setProperty("--heart-color", color);
+        document.body.appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }, 300);
+    }
+  </script>
+</body>
+</html>
